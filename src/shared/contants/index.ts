@@ -7,3 +7,5 @@ export const FILTER_OPTIONS = [
   { value: "exterior", label: "Exterior" },
   { value: "especialista", label: "Especialista" },
 ];
+
+export const PER_PAGE = 20;

@@ -7,6 +7,7 @@ const getFilterData = (filter: string) =>
   FILTER_OPTIONS.find((f) => f.value === filter);
 
 export function filterByData(data: GithubResponse[], filters: string[]) {
+  if (!data) return [];
   if (filters.length === 0) return data;
 
   const arrayFiltered: GithubResponse[] = [];

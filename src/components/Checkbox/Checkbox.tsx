@@ -13,7 +13,7 @@ export function Checkbox({
           type="checkbox"
           id={value}
           value={value}
-          className="opacity-0 absolute h-3 w-3 cursor-pointer"
+          className="opacity-0 absolute h-3 w-3 "
           defaultChecked={checked}
           onChange={onChange}
         />
@@ -35,7 +35,7 @@ export function Checkbox({
             </g>
           </svg>
         </div>
-        <label htmlFor={value} className="select-none">
+        <label htmlFor={value} className="select-none cursor-pointer">
           {title}
         </label>
       </div>

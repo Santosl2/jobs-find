@@ -1,4 +1,11 @@
-import type { JobsTypes, GithubResponse, Filter } from "@/interfaces";
+import { AxiosResponse } from "axios";
+
+import type {
+  JobsTypes,
+  GithubResponse,
+  Filter,
+  JobsState,
+} from "@/interfaces";
 import { mergeArray, sortData } from "@/shared/utils";
 import { filterByData } from "@/shared/utils/filterData";
 
@@ -9,13 +16,17 @@ const TYPES = {
   backend: ["backend-br/vagas/issues"],
 };
 
-export async function getData(jobType: JobsTypes, filters: Filter = []) {
+export async function getData(
+  jobType: JobsTypes,
+  filters: Filter = [],
+  page = 1
+) {
   const jobs = TYPES[jobType].map(async (url) =>
-    api.get<GithubResponse[]>(url)
+    api.get<GithubResponse[]>(`${url}?page=${page}`)
   );
 
   const jobsRequest = await Promise.all(jobs);
-  const data = mergeArray(jobsRequest);
+  const data = mergeArray<AxiosResponse<GithubResponse[], any>[]>(jobsRequest);
 
   if (filters.length) {
     return sortData(filterByData(data, filters));
@@ -24,10 +35,14 @@ export async function getData(jobType: JobsTypes, filters: Filter = []) {
   return sortData(data);
 }
 
-export function filterData(data: GithubResponse[] = [], filters: Filter = []) {
+export function filterData(data: JobsState | undefined, filters: Filter = []) {
+  if (!data) return [];
+
+  const jobs = mergeArray<GithubResponse[][]>(data.pages);
+
   if (filters.length) {
-    return sortData(filterByData(data, filters));
+    return sortData(filterByData(jobs, filters));
   }
 
-  return sortData(data);
+  return sortData(jobs);
 }

@@ -1,2 +1,2 @@
-export * from "./useJobs";
+export * from "./useInfinityJobs";
 export * from "./useSelectorFilter";
