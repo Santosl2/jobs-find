@@ -10,7 +10,7 @@ export function useInfinityJobs(
   filters: Filter = []
 ) {
   return useInfiniteQuery(
-    ["jobss"],
+    ["jobs"],
     ({ pageParam = 1 }) => getData(type, filters, pageParam),
     {
       getNextPageParam: (lastPage, pages) => {
