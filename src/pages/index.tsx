@@ -1,10 +1,12 @@
+import { useEffect, useState } from "react";
+
 import { motion, Variants } from "framer-motion";
 
-import { Header } from "@/components/Header";
-import { Job } from "@/components/Job";
-import { LeftBar } from "@/components/LeftBar";
-import { useJobs } from "@/hooks";
+import { Header, Job, LeftBar } from "@/components";
+import { GithubResponse } from "@/interfaces";
 import { SEO } from "@/SEO";
+import { useJobs, useSelectorFilter } from "@/shared/hooks";
+import { filterData } from "@/shared/services/github";
 
 const variants: Variants = {
   hidden: {
@@ -19,7 +21,14 @@ const variants: Variants = {
 };
 
 export default function Home() {
-  const { isLoading, data: jobs } = useJobs();
+  const filters = useSelectorFilter();
+  const { isLoading, data: jobs } = useJobs("frontend", filters);
+  const [data, setData] = useState<GithubResponse[] | undefined | null>(jobs);
+
+  useEffect(() => {
+    const newData = filterData(jobs, filters);
+    setData(newData);
+  }, [filters, jobs]);
 
   return (
     <>
@@ -29,7 +38,7 @@ export default function Home() {
         <LeftBar />
         {jobs && (
           <motion.div variants={variants} initial="hidden" animate="show">
-            {jobs?.map((job) => (
+            {data?.map((job) => (
               <Job
                 key={job.id}
                 title={job.title}

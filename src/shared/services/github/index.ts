@@ -1,5 +1,6 @@
-import type { JobsTypes, GithubResponse } from "@/interfaces";
-import { sortData } from "@/shared/utils/sort";
+import type { JobsTypes, GithubResponse, Filter } from "@/interfaces";
+import { mergeArray, sortData } from "@/shared/utils";
+import { filterByData } from "@/shared/utils/filterData";
 
 import { api } from "../api";
 
@@ -8,16 +9,25 @@ const TYPES = {
   backend: ["backend-br/vagas/issues"],
 };
 
-export async function getData(jobType: JobsTypes) {
-  const jobs = TYPES[jobType].map(async (url) => api.get<GithubResponse>(url));
+export async function getData(jobType: JobsTypes, filters: Filter = []) {
+  const jobs = TYPES[jobType].map(async (url) =>
+    api.get<GithubResponse[]>(url)
+  );
 
   const jobsRequest = await Promise.all(jobs);
+  const data = mergeArray(jobsRequest);
 
-  const jobsData = jobsRequest
-    .map((job) => job.data)
-    .reduce((acc, curr) => {
-      return [...acc, ...curr];
-    }, []);
+  if (filters.length) {
+    return sortData(filterByData(data, filters));
+  }
 
-  return sortData(jobsData);
+  return sortData(data);
+}
+
+export function filterData(data: GithubResponse[] = [], filters: Filter = []) {
+  if (filters.length) {
+    return sortData(filterByData(data, filters));
+  }
+
+  return sortData(data);
 }

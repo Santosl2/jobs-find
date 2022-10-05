@@ -1,16 +1,20 @@
-import { useState, useCallback, BaseSyntheticEvent } from "react";
+import { useCallback, BaseSyntheticEvent } from "react";
+import { useDispatch } from "react-redux";
 
-import { Checkbox } from "@/components/Checkbox/Checkbox";
+import { Checkbox } from "@/components/Checkbox";
 import { FILTER_OPTIONS } from "@/shared/contants";
+import { useSelectorFilter } from "@/shared/hooks";
+import { addFilter, removeFilter } from "@/shared/store/reducers/filters";
 
 export function FilterOptions() {
-  const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
+  const filters = useSelectorFilter();
+  const dispatch = useDispatch();
 
   const verifyIfIsSelected = useCallback(
     (value: string) => {
-      return selectedFilters.includes(value);
+      return filters.includes(value);
     },
-    [selectedFilters]
+    [filters]
   );
 
   const handleSelectFilter = useCallback(
@@ -18,12 +22,13 @@ export function FilterOptions() {
       const { value } = e.target as HTMLInputElement;
 
       if (verifyIfIsSelected(value)) {
-        setSelectedFilters((prev) => prev.filter((item) => item !== value));
-      } else {
-        setSelectedFilters((prev) => [...prev, value]);
+        dispatch(removeFilter(value));
+        return;
       }
+
+      dispatch(addFilter(value));
     },
-    [verifyIfIsSelected]
+    [verifyIfIsSelected, dispatch]
   );
 
   return (
