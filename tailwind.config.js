@@ -6,6 +6,9 @@ module.exports = {
       sans: ["Poppins", "sans-serif"],
     },
     extend: {
+      gridTemplateColumns: {
+        body: "400px minmax(200px, 1fr)",
+      },
       fontFamily: {
         title: ["Roboto", "sans-serif"],
       },
