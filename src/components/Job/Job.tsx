@@ -26,7 +26,8 @@ export function Job({ labels, title, user, created_at }: JobProps) {
   return (
     <motion.div
       variants={item}
-      className="w-full rounded-md bg-white p-5 mb-5 text-job-blue font-title flex gap-5 items-center"
+      whileHover={{ y: -10 }}
+      className="w-full rounded-md bg-white p-5 mb-5 text-job-blue font-title flex gap-5 items-center drop-shadow-sm"
     >
       <img src={user.avatar_url} className="rounded-full w-20 h-20" alt="f" />
       <div>

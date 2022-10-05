@@ -2,6 +2,7 @@ import { motion, Variants } from "framer-motion";
 
 import { Header } from "@/components/Header";
 import { Job } from "@/components/Job";
+import { LeftBar } from "@/components/LeftBar";
 import { useJobs } from "@/hooks";
 import { SEO } from "@/SEO";
 
@@ -24,19 +25,22 @@ export default function Home() {
     <>
       <SEO title="Teste" />
       <Header />
-      {jobs && (
-        <motion.div variants={variants} initial="hidden" animate="show">
-          {jobs?.map((job) => (
-            <Job
-              key={job.id}
-              title={job.title}
-              labels={job.labels}
-              user={job.user}
-              created_at={job.created_at}
-            />
-          ))}
-        </motion.div>
-      )}
+      <div className="grid grid-cols-body gap-5">
+        <LeftBar />
+        {jobs && (
+          <motion.div variants={variants} initial="hidden" animate="show">
+            {jobs?.map((job) => (
+              <Job
+                key={job.id}
+                title={job.title}
+                labels={job.labels}
+                user={job.user}
+                created_at={job.created_at}
+              />
+            ))}
+          </motion.div>
+        )}
+      </div>
     </>
   );
 }
