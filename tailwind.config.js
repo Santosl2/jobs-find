@@ -6,6 +6,9 @@ module.exports = {
       sans: ["Poppins", "sans-serif"],
     },
     extend: {
+      backgroundImage: {
+        "header-bg": "url('/bg.jpg')",
+      },
       gridTemplateColumns: {
         body: "400px minmax(200px, 1fr)",
       },
