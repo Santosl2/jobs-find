@@ -46,3 +46,11 @@ export function filterData(data: JobsState | undefined, filters: Filter = []) {
 
   return sortData(jobs);
 }
+
+export async function getIssueById(jobType: JobsTypes, id: number) {
+  const type = TYPES[jobType][0];
+
+  const issueById = await api.get<GithubResponse>(`${type}/${id}`);
+
+  return issueById.data;
+}

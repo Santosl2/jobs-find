@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 
 import { motion, Variants } from "framer-motion";
 
-import { Header, Job, LeftBar } from "@/components";
+import { Job } from "@/components";
+import { Content } from "@/components/Content";
 import { LoadMore } from "@/components/LoadMore";
 import { GithubResponse } from "@/interfaces";
 import { SEO } from "@/SEO";
@@ -18,6 +19,9 @@ const variants: Variants = {
     transition: {
       staggerChildren: 0.07,
     },
+  },
+  exit: {
+    opacity: 0,
   },
 };
 
@@ -42,15 +46,19 @@ export default function Home() {
   return (
     <>
       <SEO title="Teste" />
-      <Header />
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-body  p-2">
-        <LeftBar />
+      <Content>
         {isSuccess && infinityJob && (
-          <motion.div variants={variants} initial="hidden" animate="show">
+          <motion.div
+            variants={variants}
+            initial="hidden"
+            animate="show"
+            exit="exit"
+          >
             {data &&
               data.map((item) => (
                 <Job
                   key={item.id}
+                  id={item.number}
                   title={item.title}
                   labels={item.labels}
                   user={item.user}
@@ -66,7 +74,7 @@ export default function Home() {
             )}
           </motion.div>
         )}
-      </div>
+      </Content>
     </>
   );
 }

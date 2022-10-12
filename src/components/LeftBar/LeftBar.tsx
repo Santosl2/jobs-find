@@ -2,8 +2,8 @@ import { FilterOptions } from "./FilterOptions/FilterOptions";
 
 export function LeftBar() {
   return (
-    <div>
-      <h4 className="text-[#B9BDCF] font-bold font-title text-sm uppercase ">
+    <div className="sticky top-2 self-start">
+      <h4 className="text-[#B9BDCF] font-bold font-title text-sm uppercase">
         Filtrar
       </h4>
 

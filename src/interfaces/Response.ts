@@ -5,8 +5,10 @@ export type GithubResponse = {
   title: string;
   body: string;
   author_association: string;
+  number: number;
 
   labels: Labels[];
   user: User;
   created_at: number;
+  url: string;
 };

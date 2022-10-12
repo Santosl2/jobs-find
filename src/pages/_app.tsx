@@ -11,12 +11,16 @@ import { QueryClientProvider } from "@tanstack/react-query";
 
 import { Provider } from "react-redux";
 
-function MyApp({ Component, pageProps }: AppProps) {
+import { AnimatePresence } from "framer-motion";
+
+function MyApp({ Component, pageProps, router }: AppProps) {
   return (
     <Provider store={store}>
       <PersistGate loading={<>Loading</>} persistor={persistor}>
         <QueryClientProvider client={queryClient}>
-          <Component {...pageProps} />
+          <AnimatePresence exitBeforeEnter>
+            <Component {...pageProps} key={router.route} />
+          </AnimatePresence>
         </QueryClientProvider>
       </PersistGate>
     </Provider>

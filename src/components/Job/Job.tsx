@@ -2,6 +2,7 @@
 import { formatDistanceToNowStrict } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR";
 import { motion, Variants } from "framer-motion";
+import { useRouter } from "next/router";
 
 import type { Job as JobProps } from "@/interfaces";
 
@@ -18,22 +19,28 @@ const item: Variants = {
   },
 };
 
-export function Job({ labels, title, user, created_at }: JobProps) {
+export function Job({ id, labels, title, user, created_at }: JobProps) {
   const formattedDate = formatDistanceToNowStrict(new Date(created_at), {
     locale: ptBR,
     addSuffix: true,
   });
+
+  const router = useRouter();
+
   return (
     <motion.div
       variants={item}
       whileHover={{ y: -10 }}
       layout
-      className="w-full rounded-md bg-white p-5 mb-5 text-job-blue font-title flex gap-5 items-center drop-shadow-sm"
+      className="w-full rounded-md bg-white p-5 mb-5 text-job-blue font-title flex gap-5 items-center drop-shadow-sm cursor-pointer"
+      onClick={() => {
+        router.push(`/details/${id}`);
+      }}
     >
       <img
         src={user.avatar_url}
         className="rounded-full w-12 h-12 md:w-20 md:h-20"
-        alt="f"
+        alt="Avatar GitHub"
       />
       <div>
         <p className="mb-1 font-bold text-sm">{user.login}</p>
