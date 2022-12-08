@@ -35,7 +35,7 @@ export default function Details(data: GithubResponse) {
 
   return (
     <>
-      <SEO title="Teste" />
+      <SEO title={title} />
       <Content showFilters={false}>
         <motion.div
           variants={variants}
@@ -54,17 +54,15 @@ export default function Details(data: GithubResponse) {
               <ArrowLeft size={20} />
             </button>
             {title}{" "}
-            <span>
-              <button
-                className="bg-transparent rounded border-2 border-cyan-700 text-cyan-700 px-2 py-2 text-sm"
-                type="button"
-                onClick={() => {
-                  router.replace(url);
-                }}
-              >
-                <GithubLogo size={20} />
-              </button>
-            </span>
+            <button
+              className="bg-transparent rounded border-2 border-cyan-700 text-cyan-700 px-2 py-2 text-sm"
+              type="button"
+              onClick={() => {
+                router.replace(url);
+              }}
+            >
+              <GithubLogo size={20} />
+            </button>
           </h4>
           <div
             className="w-full mb-5 text-job-blue "
