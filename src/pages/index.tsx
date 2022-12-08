@@ -45,7 +45,7 @@ export default function Home() {
 
   return (
     <>
-      <SEO title="Teste" />
+      <SEO title="Encontre vagas de desenvolvedor frontend" />
       <Content>
         {isSuccess && infinityJob && (
           <motion.div

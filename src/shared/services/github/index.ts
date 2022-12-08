@@ -26,6 +26,7 @@ export async function getData(
   );
 
   const jobsRequest = await Promise.all(jobs);
+
   const data = mergeArray<AxiosResponse<GithubResponse[], any>[]>(jobsRequest);
 
   if (filters.length) {

@@ -2,3 +2,4 @@
 /* eslint-disable unused-imports/no-unused-imports */
 
 import "@testing-library/jest-dom/extend-expect";
+import "./mocks/server";

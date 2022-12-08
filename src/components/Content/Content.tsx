@@ -19,7 +19,7 @@ export function Content({ children, showFilters = true }: ContentProps) {
   return (
     <>
       <Header />
-      <div className={classNames}>
+      <div className={classNames} data-testid="contentTest">
         {showFilters && <LeftBar />}
         {children}
       </div>

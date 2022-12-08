@@ -10,6 +10,7 @@ export function Checkbox({
     <div className="p-2 font-title">
       <div className="flex items-center mr-4">
         <input
+          data-testid="checkboxTest"
           type="checkbox"
           id={value}
           value={value}

@@ -30,6 +30,7 @@ export function Job({ id, labels, title, user, created_at }: JobProps) {
   return (
     <motion.div
       variants={item}
+      data-testid="jobTest"
       whileHover={{ y: -10 }}
       layout
       className="w-full rounded-md bg-white p-5 mb-5 text-job-blue font-title flex gap-5 items-center drop-shadow-sm cursor-pointer"
