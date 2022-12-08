@@ -27,6 +27,10 @@ export default function Details(data: GithubResponse) {
   const { body, title } = data;
   const router = useRouter();
 
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
+
   if (!data) {
     router.push("/");
   }
